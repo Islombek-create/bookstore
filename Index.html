@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varaq — Kitob do'koni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B3B2F;
+    --ink-soft:#25503F;
+    --paper:#F4EEDD;
+    --paper-2:#ECE3CC;
+    --gold:#C9962B;
+    --gold-dark:#A87A1E;
+    --wine:#7A2430;
+    --text-dark:#211D16;
+    --text-light:#F4EEDD;
+    --line: rgba(27,59,47,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Karla', sans-serif;
+    background:var(--paper);
+    color:var(--text-dark);
+    line-height:1.5;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Fraunces', serif;
+  }
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+  /* HEADER */
+  header{
+    background:var(--ink);
+    color:var(--text-light);
+    position:sticky; top:0; z-index:40;
+  }
+  .headbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0; gap:20px; flex-wrap:wrap;
+  }
+  .brand{font-size:26px; font-weight:700; letter-spacing:0.3px;}
+  .brand span{color:var(--gold);}
+  nav.links{display:flex; gap:26px; font-size:15px;}
+  nav.links a{opacity:0.85; padding:4px 0; border-bottom:2px solid transparent;}
+  nav.links a:hover{opacity:1; border-color:var(--gold);}
+  .head-right{display:flex; align-items:center; gap:16px;}
+  .search-box{
+    display:flex; align-items:center;
+    background:rgba(244,238,221,0.1);
+    border:1px solid rgba(244,238,221,0.28);
+    border-radius:6px; padding:7px 12px; gap:8px;
+  }
+  .search-box input{
+    background:none; border:none; outline:none; color:var(--text-light);
+    font-size:14px; width:150px;
+  }
+  .search-box input::placeholder{color:rgba(244,238,221,0.55);}
+  .cart-btn{
+    position:relative; display:flex; align-items:center; gap:8px;
+    background:var(--gold); color:var(--ink); font-weight:700;
+    padding:9px 16px; border-radius:6px; font-size:14px;
+  }
+  .cart-count{
+    position:absolute; top:-8px; right:-8px;
+    background:var(--wine); color:#fff; font-size:11px; font-weight:700;
+    width:20px; height:20px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* HERO */
+  .hero{
+    background:var(--ink); color:var(--text-light);
+    padding:64px 0 88px;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .hero h1{
+    font-size:46px; font-weight:600; line-height:1.15; max-width:520px;
+  }
+  .hero p{
+    margin-top:18px; font-size:16px; max-width:440px; opacity:0.82;
+  }
+  .hero-cta{
+    margin-top:30px; display:inline-block;
+    background:var(--gold); color:var(--ink); font-weight:700;
+    padding:13px 26px; border-radius:6px; font-size:15px;
+  }
+  .hero-cta:hover{background:var(--gold-dark);}
+
+  .stack{width:100%; max-width:320px; justify-self:end;}
+
+  /* GENRE FILTER */
+  .filters{
+    padding:34px 0 6px;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .chip{
+    border:1px solid var(--line); padding:8px 18px; border-radius:999px;
+    font-size:14px; color:var(--ink); background:transparent;
+  }
+  .chip.active{background:var(--ink); color:var(--text-light); border-color:var(--ink);}
+
+  /* CATALOG */
+  .catalog-title{padding:30px 0 6px;}
+  .catalog-title h2{font-size:26px; font-weight:600;}
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+    gap:22px; padding:22px 0 70px;
+  }
+  .card{border:1px solid var(--line); border-radius:4px; overflow:hidden;
+    background:var(--paper); display:flex; flex-direction:column;
+  }
+  .cover{
+    height:160px; display:flex; align-items:center; justify-content:center;
+    color:var(--text-light); font-family:'Fraunces',serif; font-size:15px;
+    font-weight:600; text-align:center; padding:14px; line-height:1.25;
+    overflow:hidden;
+  }
+  .cover img{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .card-body{padding:16px; display:flex; flex-direction:column; gap:6px; flex:1;}
+  .genre-tag{
+    font-size:11.5px; color:var(--wine); font-weight:700;
+  }
+  .card-body h3{font-size:16.5px; font-weight:600; margin-top:2px;}
+  .author{font-size:13px; opacity:0.7;}
+  .price-row{
+    margin-top:auto; padding-top:10px; display:flex; align-items:center;
+    justify-content:space-between;
+  }
+  .price{font-weight:700; font-size:15.5px; color:var(--ink);}
+  .add-btn{
+    background:var(--ink); color:var(--text-light); font-size:13px; font-weight:600;
+    padding:8px 12px; border-radius:5px;
+  }
+  .add-btn:hover{background:var(--ink-soft);}
+
+  footer{
+    background:var(--ink); color:var(--text-light); padding:30px 0; margin-top:40px;
+  }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:13px; opacity:0.75;
+  }
+
+  @media(max-width:800px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .stack{justify-self:center; max-width:220px;}
+    .hero h1{font-size:34px;}
+    nav.links{display:none;}
+    .search-box input{width:100px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap headbar">
+    <div class="brand">Varaq<span>.</span></div>
+    <nav class="links">
+      <a href="#hero">Bosh sahifa</a>
+      <a href="#catalog">Katalog</a>
+      <a href="#footer">Aloqa</a>
+    </nav>
+    <div class="head-right">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" placeholder="Kitob qidirish...">
+      </div>
+      <button class="cart-btn">
+        🛒 Savat
+        <span class="cart-count">2</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div>
+      <h1>Har bir varaq — yangi bir dunyo.</h1>
+      <p>O'zbek va jahon adabiyotining sara asarlari bir joyda. Sevimli kitobingizni tanlang, savatga qo'shing va o'qishni bugunoq boshlang.</p>
+      <a href="#catalog" class="hero-cta">Katalogni ko'rish</a>
+    </div>
+    <svg class="stack" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="150" width="200" height="26" rx="3" fill="#C9962B"/>
+      <rect x="45" y="118" width="170" height="26" rx="3" fill="#7A2430"/>
+      <rect x="55" y="86" width="150" height="26" rx="3" fill="#F4EEDD"/>
+      <rect x="70" y="54" width="120" height="26" rx="3" fill="#25503F"/>
+      <rect x="95" y="18" width="70" height="32" rx="2" fill="#C9962B" transform="rotate(-8 95 18)"/>
+    </svg>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="filters">
+    <button class="chip active">Barchasi</button>
+    <button class="chip">Klassika</button>
+    <button class="chip">Zamonaviy roman</button>
+    <button class="chip">Bolalar</button>
+    <button class="chip">Tarixiy</button>
+  </div>
+
+  <div class="catalog-title" id="catalog">
+    <h2>Katalog</h2>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="cover" style="background:#25503F"><img src="https://picsum.photos/seed/otkan-kunlar/300/400" alt="O'tkan kunlar muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Klassika</span>
+        <h3>O'tkan kunlar</h3>
+        <span class="author">Abdulla Qodiriy</span>
+        <div class="price-row">
+          <span class="price">35 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div><div class="card">
+      <div class="cover" style="background:#7A2430"><img src="https://picsum.photos/seed/mehrobdan-chayon/300/400" alt="Mehrobdan chayon muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Klassika</span>
+        <h3>Mehrobdan chayon</h3>
+        <span class="author">Abdulla Qodiriy</span>
+        <div class="price-row">
+          <span class="price">32 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#C9962B"><img src="https://picsum.photos/seed/sariq-devni-minib/300/400" alt="Sariq devni minib muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Bolalar</span>
+        <h3>Sariq devni minib</h3>
+        <span class="author">Xudoyberdi To'xtaboyev</span>
+        <div class="price-row">
+          <span class="price">28 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#1B3B2F"><img src="https://picsum.photos/seed/ikki-eshik-orasi/300/400" alt="Ikki eshik orasi muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Zamonaviy roman</span>
+        <h3>Ikki eshik orasi</h3>
+        <span class="author">O'tkir Hoshimov</span>
+        <div class="price-row">
+          <span class="price">40 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#7A2430"><img src="https://picsum.photos/seed/kecha-va-kunduz/300/400" alt="Kecha va kunduz muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Klassika</span>
+        <h3>Kecha va kunduz</h3>
+        <span class="author">Cho'lpon</span>
+        <div class="price-row">
+          <span class="price">30 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#25503F"><img src="https://picsum.photos/seed/dunyoning-ishlari/300/400" alt="Dunyoning ishlari muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Zamonaviy roman</span>
+        <h3>Dunyoning ishlari</h3>
+        <span class="author">O'tkir Hoshimov</span>
+        <div class="price-row">
+          <span class="price">38 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#A87A1E"><img src="https://picsum.photos/seed/alpomish/300/400" alt="Alpomish muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Tarixiy</span>
+        <h3>Alpomish</h3>
+        <span class="author">Xalq og'zaki ijodi</span>
+        <div class="price-row">
+          <span class="price">25 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cover" style="background:#1B3B2F"><img src="https://picsum.photos/seed/yulduzli-tunlar/300/400" alt="Yulduzli tunlar muqovasi"></div>
+      <div class="card-body">
+        <span class="genre-tag">Tarixiy</span>
+        <h3>Yulduzli tunlar</h3>
+        <span class="author">Pirimqul Qodirov</span>
+        <div class="price-row">
+          <span class="price">42 000 so'm</span>
+          <button class="add-btn">Savatga</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="wrap">
+    <div>© 2026 Varaq kitob do'koni</div>
+    <div>Toshkent · +998 90 000 00 00</div>
+  </div>
+</footer>
+
+</body>
+</html>
